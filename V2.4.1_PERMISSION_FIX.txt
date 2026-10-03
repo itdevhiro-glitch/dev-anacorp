@@ -1,0 +1,1 @@
+Permission text input removed. Default permissions follow selected role automatically. Custom permissions use a controlled multi-select list only. Vendor profile is selected from registered data or auto-created.
