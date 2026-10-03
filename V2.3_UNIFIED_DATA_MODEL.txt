@@ -1,0 +1,26 @@
+AQUA NOVA OPERATIONS HUB V2.3 — UNIFIED USER DIRECTORY
+
+SOURCE OF TRUTH
+users/{uid} is the identity/role source of truth.
+
+CREATE USER
+Root creates an Auth account with role Admin / Staff / Vendor / Talent.
+Cloud Function provisionUser creates users/{uid}.
+For vendor/staff/talent it also creates the matching directory document using THE SAME UID:
+- vendors/{uid}
+- staff/{uid}
+- talents/{uid}
+
+Vendor users also receive users/{uid}.vendorId = uid.
+
+DIRECTORY SCREENS
+Vendor / Staff / Talent screens are directories linked to users by UID.
+They are no longer intended to create disconnected people records.
+
+EXISTING DATA MIGRATION
+Deploy Cloud Functions and invoke root-only callable syncUserDirectories once.
+It backfills vendor/staff/talent directory records for existing users.
+
+DROPDOWN POLICY
+Relational fields select registered records. Free text remains only for descriptive fields.
+Project vendor/assignee/PIC/talent selections should use users as identity source and directory profiles only as enrichment.

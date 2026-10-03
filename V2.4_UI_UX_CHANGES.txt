@@ -1,0 +1,1 @@
+Responsive desktop/mobile redesign. Calendar: monthly grid, click date to add, selected-date agenda, Events + derived project kickoff/deadline. Reduced expensive motion for smoother UX.

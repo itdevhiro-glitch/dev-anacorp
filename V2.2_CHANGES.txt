@@ -1,0 +1,24 @@
+AQUA NOVA OPERATIONS HUB V2.2
+
+1. USER ROLE / PERMISSIONS
+- Role is selected once.
+- Permissions are automatically assigned from ROLE_PERMISSION_PRESETS.
+- Manual comma-separated permission input is removed.
+- UI shows a permission preview for the selected role.
+- Root remains reserved and cannot be created through the account form.
+
+2. MASTER-DATA INPUT POLICY
+All relational/master-data fields must use registered data selections instead of free-text:
+- PIC -> registered user
+- Vendor -> registered vendor
+- Primary Assignee -> registered user belonging to selected vendor
+- Talent -> registered talent
+- Staff -> registered staff/user
+- Project Category -> registered category
+- Group/Division -> registered group/division
+- Finance relation -> registered project/vendor/user
+- Invoice relation -> registered project/vendor
+- Event participants -> registered users/talents/staff
+Free text remains only for genuine descriptive data such as project name, description, notes, URLs, invoice notes, and rejection reason.
+
+This prevents typo-based duplicate/inconsistent relational data.
