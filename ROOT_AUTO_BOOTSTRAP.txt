@@ -1,0 +1,9 @@
+ROOT AUTO-BOOTSTRAP ENABLED
+
+Keep root@ana.studio in Firebase Authentication.
+Publish the included firestore.rules first.
+Then sign in normally.
+
+If users/{UID} does not exist, the app creates the root profile automatically.
+The rule permits this only when the authenticated Firebase email is exactly root@ana.studio
+and the document ID equals that account's own UID.

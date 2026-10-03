@@ -7,7 +7,23 @@ service cloud.firestore { match /databases/{database}/documents {
   function perm(p){ return signed() && (admin() || p in profile().permissions); }
   function project(pid){ return get(/databases/$(database)/documents/projects/$(pid)).data; }
   function projectRead(p){ return admin() || perm('projects.view.all') || p.picUserId == request.auth.uid || request.auth.uid in p.staffAssigneeIds || request.auth.uid in p.vendorUids || request.auth.uid in p.talentUids; }
-  match /users/{uid} { allow read: if signed() && (uid == request.auth.uid || admin() || perm('projects.create') || perm('users.view')); allow create,update: if bootstrapRoot(); allow delete: if bootstrapRoot(); }
+  match /users/{uid} {
+    allow read: if signed() && (
+      uid == request.auth.uid ||
+      (request.auth.token.email != null && request.auth.token.email == 'root@ana.studio') ||
+      admin() || perm('projects.create') || perm('users.view')
+    );
+    allow create: if signed()
+      && uid == request.auth.uid
+      && request.auth.token.email != null
+      && request.auth.token.email == 'root@ana.studio'
+      && request.resource.data.email == 'root@ana.studio'
+      && request.resource.data.role == 'root'
+      && request.resource.data.status == 'active'
+      && request.resource.data.bootstrapRoot == true
+      && request.resource.data.createdBy == request.auth.uid;
+    allow update, delete: if bootstrapRoot();
+  }
   match /roles/{id} { allow read: if signed(); allow write: if bootstrapRoot(); }
   match /projects/{pid} {
     allow read: if signed() && projectRead(resource.data);
